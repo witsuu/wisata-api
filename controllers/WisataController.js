@@ -30,7 +30,7 @@ const getWisataById = async (req, res) => {
   res.send(wisata);
 };
 
-const getAllWisata = async () => {
+const getAllWisata = async (req, res) => {
   const destinations = await Wisata.find();
 
   res.send(destinations);
