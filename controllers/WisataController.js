@@ -30,7 +30,14 @@ const getWisataById = async (req, res) => {
   res.send(wisata);
 };
 
+const getAllWisata = async () => {
+  const destinations = await Wisata.find();
+
+  res.send(destinations);
+};
+
 module.exports = {
   storeWisata,
   getWisataById,
+  getAllWisata,
 };
