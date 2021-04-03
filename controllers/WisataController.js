@@ -46,7 +46,7 @@ const getWisataWithPaging = (req, res, next) => {
       .limit(perPage);
     const totalDestiny = Wisata.find().countDocuments();
 
-    res.send({
+    res.status(200).json({
       message: "Fetch data destination with pagination",
       destinations: destinations,
       currentPage: currentPage,
