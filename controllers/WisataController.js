@@ -36,24 +36,24 @@ const getAllWisata = async (req, res) => {
   res.send(destinations);
 };
 
-const getWisataWithPaging = (req, res, next) => {
-  let currentPage = req.query.page;
-  let perPage = req.query.per;
+const getWisataWithPaging = async (req, res, next) => {
+  const { page, limit } = req.query;
 
   try {
-    const destinations = Wisata.find()
-      .skip((currentPage - 1) * perPage)
-      .limit(perPage);
-    const totalDestiny = Wisata.find().countDocuments();
+    const destinations = await Wisata.find()
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .exec();
+    const totalDestiny = await Wisata.find().countDocuments();
 
     res.status(200).json({
       message: "Fetch data destination with pagination",
       destinations: destinations,
-      currentPage: currentPage,
-      maxPage: Math.ceil(totalDestiny / perPage),
+      currentPage: page,
+      maxPage: Math.ceil(totalDestiny / limit),
     });
   } catch (error) {
-    res.send(error);
+    res.send("" + error);
   }
 };
 
