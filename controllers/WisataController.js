@@ -36,8 +36,30 @@ const getAllWisata = async (req, res) => {
   res.send(destinations);
 };
 
+const getWisataWithPaging = (req, res, next) => {
+  let currentPage = req.query.page;
+  let perPage = req.query.per;
+
+  try {
+    const destinations = Wisata.find()
+      .skip((currentPage - 1) * perPage)
+      .limit(perPage);
+    const totalDestiny = Wisata.find().countDocuments();
+
+    res.send({
+      message: "Fetch data destination with pagination",
+      destinations: destinations,
+      currentPage: currentPage,
+      maxPage: Math.ceil(totalDestiny / perPage),
+    });
+  } catch (error) {
+    res.send(error);
+  }
+};
+
 module.exports = {
   storeWisata,
   getWisataById,
   getAllWisata,
+  getWisataWithPaging,
 };
