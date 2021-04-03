@@ -42,7 +42,7 @@ const getWisataWithPaging = async (req, res, next) => {
   try {
     const destinations = await Wisata.find()
       .skip((page - 1) * limit)
-      .limit(limit)
+      .limit(parseInt(limit))
       .exec();
     const totalDestiny = await Wisata.find().countDocuments();
 
